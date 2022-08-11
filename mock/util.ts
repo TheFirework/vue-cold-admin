@@ -6,10 +6,10 @@ export function resultOk<T>(data: T, message: string = "ok") {
   };
 }
 
-export function resultFail<T>(message: string = "fail", data = null) {
+export function resultFail<T>(message: string = "fail", code:number = -1,data = null) {
   return {
-    code: 500,
-    data: data,
+    code,
+    data,
     message: message,
   };
 }
@@ -38,12 +38,12 @@ export function pagination<T = any>(
 export interface requestParams {
   method: string;
   body: any;
-  headers?: { authorization?: string };
+  headers?: { token?: string };
   query: any;
 }
 
 export function getRequestToken({
   headers,
 }: requestParams): string | undefined {
-  return headers?.authorization;
+  return headers?.token;
 }

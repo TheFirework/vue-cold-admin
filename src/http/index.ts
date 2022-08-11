@@ -1,5 +1,5 @@
 import { config } from '@/config';
-import { isString } from "@/utils/is/";
+import { isString } from "~/src/utils/is";
 import { ResultEnum } from "@/enums/httpEnum";
 import { ContentTypeEnum } from "../enums/httpEnum";
 import { Http } from "./http";

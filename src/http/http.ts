@@ -1,7 +1,7 @@
 import { Cancel } from "./cancel";
 import { cloneDeep } from "lodash-es";
 
-import { isFunction } from "@/utils/is/index";
+import { isFunction } from "~/src/utils/is";
 import axios, { AxiosResponse } from "axios";
 import type { AxiosInstance, AxiosRequestConfig } from "axios";
 import {

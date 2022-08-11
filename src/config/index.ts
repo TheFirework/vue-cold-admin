@@ -1,11 +1,13 @@
 import http from "./http";
 
-const config = {
+const config:ConfigData = {
   ...http,
 
   /** --------- cache 配置 --------- */
   // 缓存key前缀
-  cache_prefix_key: "vue_cold_admin_",
+  cachePrefixKey: "vue_cold_admin_",
+  ACCESS_TOKEN:"ACCESS-TOKEN",
+  USERINFO:"USER-INFO"
   /** --------- cache 配置 --------- */
 };
 

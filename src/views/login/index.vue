@@ -68,7 +68,7 @@ const disabled = computed(()=>{
 const handleLogin = (e: MouseEvent) => {
     e.preventDefault()
     loading.value = true
-    formRef.value?.validate((errors) => {
+    formRef.value?.validate(async(errors) => {
         if (!errors) {
             message.success('Valid')
         } else {

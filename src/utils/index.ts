@@ -1,3 +1,3 @@
-export * from './cahce/local'
-export * from './is/index'
+export * from './storage'
+export * from './is'
 export * from './object'

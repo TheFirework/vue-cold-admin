@@ -1,14 +1,11 @@
 import http from "../http";
 
 
-export function login(username:string,password:string){
+export function login(data){
     return http.request({
         url:'/login',
         method:'post',
-        data:{
-            username,
-            password
-        }
+        data
     });
 }
 
