@@ -1,7 +1,8 @@
-import request from '~/src/http/request'
+import http from "../http";
 
-export const login = (username:string,password:string) => {
-    return request({
+
+export function login(username:string,password:string){
+    return http.request({
         url:'/login',
         method:'post',
         data:{
@@ -9,4 +10,11 @@ export const login = (username:string,password:string) => {
             password
         }
     });
+}
+
+export function logout () {
+    return http.request({
+        url:'/logout',
+        method:'post'
+    })
 }

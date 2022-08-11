@@ -1,3 +1,5 @@
 import * as login from './login'
 
-export default Object.assign({},login)
+const service = Object.assign({},login)
+
+export default service

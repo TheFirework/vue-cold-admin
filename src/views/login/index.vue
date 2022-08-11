@@ -29,7 +29,7 @@
                                             placeholder="密码" />
                                     </n-form-item>
                                     <n-form-item>
-                                        <n-button class="w-full mt-[10px]" type="success" :disabled="disabled" @click="handleLogin">登录</n-button>
+                                        <n-button class="w-full mt-[10px]" size="large" type="success" :loading="loading" :disabled="disabled" @click="handleLogin">登录</n-button>
                                     </n-form-item>
                                 </n-form>
                             </div>
@@ -59,7 +59,7 @@ const rules = {
     username: { required: true, message: '请输入用户名', trigger: ['input', 'blur'] },
     password: { required: true, message: '请输入密码', trigger: ['input', 'blur'] },
 }
-
+const loading = ref(false)
 
 const disabled = computed(()=>{
     return (formValue.value.username && formValue.value.password) ? false : true
@@ -67,6 +67,7 @@ const disabled = computed(()=>{
 
 const handleLogin = (e: MouseEvent) => {
     e.preventDefault()
+    loading.value = true
     formRef.value?.validate((errors) => {
         if (!errors) {
             message.success('Valid')
@@ -74,7 +75,8 @@ const handleLogin = (e: MouseEvent) => {
             console.log(errors)
             message.error('Invalid')
         }
-    })
+        loading.value = false
+    }).catch(()=>loading.value = false)
 }
 </script>
 

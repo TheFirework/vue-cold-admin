@@ -4,3 +4,5 @@ interface Window {
     $dialog:DialogApiInjection;
     $notification:NotificationApiInjection;
   }
+
+  declare type Recordable<T = any> = Record<string, T>;
