@@ -23,13 +23,13 @@ export abstract class RequestInterceptors {
 }
 
 export interface RequestOptions {
-  // 是否显示提示信息
+  // 是否显示自定义提示信息
   isShowMessage?: boolean;
-  // 是否显示成功信息
+  // 是否显示自定义成功信息
   isShowSuccessMessage?: boolean;
   // 成功的文本信息
   successMessageText?: string;
-  // 是否显示失败信息
+  // 是否显示自定义失败信息
   isShowErrorMessage?: boolean;
   // 错误的文本信息
   errorMessageText?: string;
@@ -44,7 +44,7 @@ export interface RequestOptions {
   // 是否携带token
   withToken?:boolean,
   // 认证模板
-  authenticationScheme:string,
+  authenticationScheme?:string,
   // 忽略重复请求
   ignoreCancelToken?:boolean,
 }

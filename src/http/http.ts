@@ -1,7 +1,7 @@
 import { Cancel } from "./cancel";
 import { cloneDeep } from "lodash-es";
 
-import { isFunction } from "~/src/utils/is";
+import { isFunction } from "@/utils/is";
 import axios, { AxiosResponse } from "axios";
 import type { AxiosInstance, AxiosRequestConfig } from "axios";
 import {
@@ -12,17 +12,19 @@ import {
 } from "./types";
 import { ContentTypeEnum } from "../enums/httpEnum";
 
+
 export class Http {
   instance: AxiosInstance;
-  options: RequestConfig;
+  options: AxiosRequestConfig;
   requestOptions: RequestOptions;
   interceptors: RequestInterceptors;
 
   constructor(options: RequestConfig) {
-    this.instance = axios.create(options);
-    this.options = options;
-    this.requestOptions = options.requestOptions;
-    this.interceptors = options.interceptors;
+    const {requestOptions,interceptors,...config} = options
+    this.instance = axios.create(config);
+    this.options = config;
+    this.requestOptions = requestOptions
+    this.interceptors = interceptors
     this.setupInterceptors();
   }
 
@@ -35,7 +37,12 @@ export class Http {
    * @param config 
    */
   private createAxios(config: RequestConfig): void {
-    this.instance = axios.create(config);
+    const {requestOptions,interceptors,...options} = config
+    this.instance = axios.create(options);
+    this.options = options;
+    this.requestOptions = requestOptions
+    this.interceptors = interceptors
+    this.instance = axios.create(options);
   }
 
   setHeader(headers: any): void {
@@ -51,7 +58,7 @@ export class Http {
     options?: RequestOptions
   ): Promise<T> {
     let conf: AxiosRequestConfig = cloneDeep(config);
-    const opt: RequestOptions = Object.assign({}, this.options, options);
+    const opt: RequestOptions = Object.assign({}, this.requestOptions, options);
     const { beforeRequestHook, requestCatch, transformRequestData } =
       this.interceptors;
     if (beforeRequestHook && isFunction(beforeRequestHook)) {

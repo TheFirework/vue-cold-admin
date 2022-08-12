@@ -1,6 +1,6 @@
 import { ResultEnum } from "@/enums/httpEnum";
 import { router } from "../router";
-import { clearLocal } from "../utils";
+import { storage } from "../utils";
 
 /**
  * 处理后端错误返回
@@ -24,7 +24,7 @@ export function responseErrorHandle(code: number, errorMsg: string): void {
         closable: false,
         maskClosable: false,
         onPositiveClick: () => {
-          clearLocal();
+          storage.clear();
           router.replace("/login");
         },
         onNegativeClick: () => {},

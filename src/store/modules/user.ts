@@ -1,8 +1,8 @@
 import config from "@/config";
 import { ResultEnum } from "@/enums/httpEnum";
 import { defineStore, storeToRefs } from "pinia";
-import { login } from "~/src/api/login";
-import { storage } from "~/src/utils";
+import { login } from "@/api/login";
+import { storage } from "@/utils";
 
 export const useUserStore = defineStore("user", {
   state: () => ({
@@ -16,10 +16,13 @@ export const useUserStore = defineStore("user", {
     setToken(token: string) {
       this.token = token;
     },
+    getToken() {
+      return this.token;
+    },
     setUserInfo(info: any) {
       this.userInfo = info;
     },
-    async login(userInfo:any) {
+    async login(userInfo: any) {
       try {
         const response = await login(userInfo);
         if (response.code === ResultEnum.SUCCESS) {
@@ -37,7 +40,7 @@ export const useUserStore = defineStore("user", {
   },
 });
 
-export function useUserStoreWith() {
+export function useUserStoreWidthOut() {
   return useUserStore();
 }
 

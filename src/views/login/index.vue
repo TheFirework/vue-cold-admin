@@ -25,11 +25,11 @@
                                         <n-input v-model:value="formValue.username" placeholder="用户名" />
                                     </n-form-item>
                                     <n-form-item label="密码" path="password">
-                                        <n-input v-model:value="formValue.password" type="password"
-                                            placeholder="密码" />
+                                        <n-input v-model:value="formValue.password" type="password" placeholder="密码" />
                                     </n-form-item>
                                     <n-form-item>
-                                        <n-button class="w-full mt-[10px]" size="large" type="success" :loading="loading" :disabled="disabled" @click="handleLogin">登录</n-button>
+                                        <n-button class="w-full mt-[10px]" size="large" type="success"
+                                            :loading="loading" @click="handleLogin">登录</n-button>
                                     </n-form-item>
                                 </n-form>
                             </div>
@@ -48,10 +48,14 @@
 
 <script setup lang="ts">
 import { FormInst, useMessage } from 'naive-ui';
+import { useUserStoreWidthOut } from '@/store';
+import { ResultEnum } from '@/enums/httpEnum';
 const message = useMessage()
-
+const userStore = useUserStoreWidthOut()
+ const router = useRouter();
+const loading = ref(false)
 const formRef = ref<FormInst | null>(null)
-const formValue = ref({
+const formValue = reactive({
     username: '',
     password: ''
 })
@@ -59,24 +63,33 @@ const rules = {
     username: { required: true, message: '请输入用户名', trigger: ['input', 'blur'] },
     password: { required: true, message: '请输入密码', trigger: ['input', 'blur'] },
 }
-const loading = ref(false)
 
-const disabled = computed(()=>{
-    return (formValue.value.username && formValue.value.password) ? false : true
-})
 
 const handleLogin = (e: MouseEvent) => {
     e.preventDefault()
-    loading.value = true
-    formRef.value?.validate(async(errors) => {
+
+    formRef.value?.validate(async (errors) => {
         if (!errors) {
-            message.success('Valid')
+            message.loading('登录中...');
+            loading.value = true
+            try {
+                const result = await userStore.login(formValue)
+                message.destroyAll();
+                if (result.code === ResultEnum.SUCCESS) {
+                    message.success('登录成功，即将进入系统');
+                    router.replace('/');
+                } else {
+                    message.error(result.message)
+                }
+            } finally {
+                loading.value = false
+            }
+
         } else {
-            console.log(errors)
-            message.error('Invalid')
+            message.error('请填写完整信息');
         }
-        loading.value = false
-    }).catch(()=>loading.value = false)
+
+    })
 }
 </script>
 

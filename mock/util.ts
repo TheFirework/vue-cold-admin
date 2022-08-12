@@ -38,12 +38,12 @@ export function pagination<T = any>(
 export interface requestParams {
   method: string;
   body: any;
-  headers?: { token?: string };
+  headers?: { Authorization?: string };
   query: any;
 }
 
 export function getRequestToken({
   headers,
 }: requestParams): string | undefined {
-  return headers?.token;
+  return headers?.Authorization;
 }

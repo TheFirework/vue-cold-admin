@@ -1,5 +1,5 @@
-import { config } from '@/config';
-import { isString } from "~/src/utils/is";
+import config from "@/config";
+import { isString } from "@/utils/is";
 import { ResultEnum } from "@/enums/httpEnum";
 import { ContentTypeEnum } from "../enums/httpEnum";
 import { Http } from "./http";
@@ -9,16 +9,16 @@ import {
   RequestOptions,
   Result,
 } from "./types";
-import { deepMerge } from "../utils/index";
+import { deepMerge } from "@/utils/index";
 import { responseErrorHandle, httpErrorStatusHandle } from "./handle";
-import { useUserStoreWith } from "../store";
+import { useUserStoreWidthOut } from "@/store";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 const interceptors: RequestInterceptors = {
   beforeRequestHook(config: AxiosRequestConfig, options: RequestOptions) {
     const { url } = options;
     if (url && isString(url)) {
-      config.url = `${url}${config.url}`;
+      config.url = url;
     }
     return config;
   },
@@ -28,7 +28,6 @@ const interceptors: RequestInterceptors = {
   ) {
     const {
       isShowMessage,
-      isParseToJson,
       isShowSuccessMessage,
       successMessageText,
       isShowErrorMessage,
@@ -37,6 +36,7 @@ const interceptors: RequestInterceptors = {
       isTransformResponse,
       isReturnNativeResponse,
     } = options;
+
     // 是否返回原生响应头，例如下载文件
     if (isReturnNativeResponse) {
       return response;
@@ -66,7 +66,7 @@ const interceptors: RequestInterceptors = {
         });
       } else if (!isSuccess && isShowErrorMessage) {
         $message.error(message || errorMessageText || "操作失败！");
-      } else if (!isSuccess && options.errorMessageMode === "modal") {
+      } else if (!isSuccess && errorMessageMode === "modal") {
         $dialog.info({
           title: "提示",
           content: message,
@@ -83,14 +83,16 @@ const interceptors: RequestInterceptors = {
     responseErrorHandle(code, message);
   },
   requestInterceptors(config: AxiosRequestConfig, options: RequestOptions) {
-    const userStore = useUserStoreWith();
-    const token = userStore.token;
+    const userStore = useUserStoreWidthOut();
+    const token = userStore.getToken();
+
     if (token && options.withToken) {
       (config as Recordable).headers.Authorization =
         options.authenticationScheme
           ? `${options.authenticationScheme} ${token}`
           : token;
     }
+
     return config;
   },
   responseInterceptorsCatch(error: any) {
@@ -143,21 +145,10 @@ function createAxios(opt?: Partial<RequestConfig>) {
         withCredentials: config.withCredentials,
         requestOptions: {
           authenticationScheme: "",
-          // 是否显示提示信息
-          isShowMessage: true,
-          // 是否显示失败信息
-          isShowErrorMessage: true,
-          // 消息提示类型
           errorMessageMode: "none",
-          // 不进行任何处理，直接返回
-          isTransformResponse: false,
-          // 是否返回原生响应头
+          isTransformResponse: true,
           isReturnNativeResponse: false,
-          // 绝对 URL
-          url: "",
-          // 是否携带token
           withToken: true,
-          // 忽略重复请求
           ignoreCancelToken: true,
         },
         interceptors,
@@ -167,7 +158,6 @@ function createAxios(opt?: Partial<RequestConfig>) {
   );
 }
 
-
 const http = createAxios();
 
-export default http
+export default http;

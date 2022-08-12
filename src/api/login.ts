@@ -1,11 +1,13 @@
 import http from "../http";
 
 
-export function login(data){
+export function login(data:any){
     return http.request({
         url:'/login',
         method:'post',
         data
+    },{
+        isTransformResponse:false
     });
 }
 
