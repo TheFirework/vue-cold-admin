@@ -10,7 +10,7 @@
       @expand="collapsed = false"
     >
       <logo :collapsed="collapsed" />
-      <SiderMenu :collapsed="collapsed" />
+      <sider-menu :collapsed="collapsed" />
     </n-layout-sider>
     <n-layout>
       <n-layout-header>顶部</n-layout-header>
