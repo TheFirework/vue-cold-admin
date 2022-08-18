@@ -1,9 +1,9 @@
-import { Cancel } from './../http/cancel';
-import {router} from '.'
+import { router } from '.'
+import { Cancel } from './../http/cancel'
 
-const whiteList = ['/login'];
+// const whiteList = ['/login']
 
-router.beforeEach((to:any,_,next)=>{
-    new Cancel().clearPending()
-    next()
+router.beforeEach((to: any, _, next) => {
+  new Cancel().clearPending()
+  next()
 })

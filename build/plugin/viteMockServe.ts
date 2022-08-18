@@ -1,17 +1,16 @@
-import { viteMockServe } from "vite-plugin-mock";
+import { viteMockServe } from 'vite-plugin-mock'
 
 export const viteMockServePlugin = (enabled: boolean) => {
-  console.log(enabled)
   return viteMockServe({
-    mockPath: "mock",
+    mockPath: 'mock',
     localEnabled: enabled,
     prodEnabled: enabled,
     supportTs: true,
     watchFiles: true,
-    logger:false,
+    logger: false,
     injectCode: `
-              import { setupProdMockServer } from '../mock/mockProdServer';
+              import { setupProdMockServer } from './mock/mockProdServer';
               setupProdMockServer();
-            `,
-  });
-};
+            `
+  })
+}

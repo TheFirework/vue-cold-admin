@@ -1,23 +1,19 @@
-import { createApp } from "vue";
-import App from "./App.vue";
-import { router } from "./router";
-import { pinia } from "./store";
+import App from '@/App.vue'
+import { router } from '@/router'
+import { pinia } from '@/store'
+import { createApp } from 'vue'
 
-import './style/index.css'
+import '@/style/index.scss'
 import 'uno.css'
-// 通用字体
-import "vfonts/Lato.css";
-// 等宽字体
-import "vfonts/FiraCode.css";
 
 const setupApp = () => {
-  const app = createApp(App);
+  const app = createApp(App)
 
-  app.use(pinia);
+  app.use(pinia)
 
-  app.use(router);
+  app.use(router)
 
-  app.mount("#app");
-};
+  app.mount('#app')
+}
 
-setupApp();
+setupApp()

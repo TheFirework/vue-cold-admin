@@ -1,183 +1,162 @@
-import { Cancel } from "./cancel";
-import { cloneDeep } from "lodash-es";
+import { cloneDeep } from 'lodash-es'
+import { Cancel } from './cancel'
 
-import { isFunction } from "@/utils/is";
-import axios, { AxiosResponse } from "axios";
-import type { AxiosInstance, AxiosRequestConfig } from "axios";
-import {
-  RequestConfig,
-  RequestInterceptors,
-  RequestOptions,
-  UploadFileParams,
-} from "./types";
-import { ContentTypeEnum } from "../enums/httpEnum";
-
+import { isFunction } from '@/utils/is'
+import type { AxiosInstance, AxiosRequestConfig } from 'axios'
+import axios, { AxiosResponse } from 'axios'
+import { ContentTypeEnum } from '../enums/httpEnum'
+import { RequestConfig, RequestInterceptors, RequestOptions, UploadFileParams } from './types'
 
 export class Http {
-  instance: AxiosInstance;
-  options: AxiosRequestConfig;
-  requestOptions: RequestOptions;
-  interceptors: RequestInterceptors;
+  instance: AxiosInstance
+  options: AxiosRequestConfig
+  requestOptions: RequestOptions
+  interceptors: RequestInterceptors
 
   constructor(options: RequestConfig) {
-    const {requestOptions,interceptors,...config} = options
-    this.instance = axios.create(config);
-    this.options = config;
+    const { requestOptions, interceptors, ...config } = options
+    this.instance = axios.create(config)
+    this.options = config
     this.requestOptions = requestOptions
     this.interceptors = interceptors
-    this.setupInterceptors();
+    this.setupInterceptors()
   }
 
   getAxios(): AxiosInstance {
-    return this.instance;
+    return this.instance
   }
 
   /**
    * 重新配置axios
-   * @param config 
+   * @param config
    */
   private createAxios(config: RequestConfig): void {
-    const {requestOptions,interceptors,...options} = config
-    this.instance = axios.create(options);
-    this.options = options;
+    const { requestOptions, interceptors, ...options } = config
+    this.instance = axios.create(options)
+    this.options = options
     this.requestOptions = requestOptions
     this.interceptors = interceptors
-    this.instance = axios.create(options);
+    this.instance = axios.create(options)
   }
 
   setHeader(headers: any): void {
-    if (!this.instance) return;
-    Object.assign(this.instance.defaults.headers, headers);
+    if (!this.instance) return
+    Object.assign(this.instance.defaults.headers, headers)
   }
 
   /**
    * 请求
+   * @param config
+   * @param options
+   * @returns
    */
-  request<T = any>(
-    config: AxiosRequestConfig,
-    options?: RequestOptions
-  ): Promise<T> {
-    let conf: AxiosRequestConfig = cloneDeep(config);
-    const opt: RequestOptions = Object.assign({}, this.requestOptions, options);
-    const { beforeRequestHook, requestCatch, transformRequestData } =
-      this.interceptors;
-    if (beforeRequestHook && isFunction(beforeRequestHook)) {
-      conf = beforeRequestHook(conf, opt);
+  async request<T = any>(config: AxiosRequestConfig, options?: RequestOptions): Promise<T> {
+    let conf: AxiosRequestConfig = cloneDeep(config)
+    const opt: RequestOptions = Object.assign({}, this.requestOptions, options)
+    const { beforeRequestHook, requestCatch, transformRequestData } = this.interceptors
+    if (beforeRequestHook != null && isFunction(beforeRequestHook)) {
+      conf = beforeRequestHook(conf, opt)
     }
 
-    return new Promise((resolve, reject) => {
+    return await new Promise((resolve, reject) => {
       this.instance
         .request(conf)
         .then((response: AxiosResponse) => {
-          if (transformRequestData && isFunction(transformRequestData)) {
+          if (transformRequestData != null && isFunction(transformRequestData)) {
             try {
-              const result = transformRequestData(response, opt);
-              resolve(result);
+              const result = transformRequestData(response, opt)
+              resolve(result)
             } catch (error) {
-              reject(error || new Error("request error!"));
+              reject(error || new Error('request error!'))
             }
-            return;
+            return
           }
-          resolve(response as unknown as Promise<T>);
+          resolve(response as unknown as Promise<T>)
         })
         .catch((error: Error) => {
-          if (requestCatch && isFunction(requestCatch)) {
-            reject(requestCatch(error));
-            return;
+          if (requestCatch != null && isFunction(requestCatch)) {
+            reject(requestCatch(error))
+            return
           }
-          reject(error);
-        });
-    });
+          reject(error)
+        })
+    })
   }
 
   /**
    * 文件上传
    */
-  uploadFile<T = any>(config: AxiosRequestConfig, params: UploadFileParams) {
-    const formData = new window.FormData();
-    const customFilename = params.name || "file";
+  async uploadFile<T = any>(config: AxiosRequestConfig, params: UploadFileParams) {
+    const formData = new window.FormData()
+    const customFilename = params.name || 'file'
     if (params.filename) {
-      formData.append(customFilename, params.file, params.filename);
+      formData.append(customFilename, params.file, params.filename)
     } else {
-      formData.append(customFilename, params.file);
+      formData.append(customFilename, params.file)
     }
 
-    if (params.data) {
+    if (params.data != null) {
       Object.keys(params.data).forEach((key) => {
-        const value = params.data![key];
+        const value = params.data?.[key]
         if (Array.isArray(value)) {
           value.forEach((item) => {
-            formData.append(`${key}[]`, item);
-          });
-          return;
+            formData.append(`${key}[]`, item)
+          })
+          return
         }
 
-        formData.append(key, params.data![key]);
-      });
+        formData.append(key, params.data?.[key])
+      })
     }
 
-    return this.instance.request<T>({
-      method: "POST",
+    return await this.instance.request<T>({
+      method: 'POST',
       data: formData,
       headers: {
-        "Content-type": ContentTypeEnum.FORM_DATA,
-        ignoreCancelToken: true,
+        'Content-type': ContentTypeEnum.FORM_DATA,
+        ignoreCancelToken: true
       },
-      ...config,
-    });
+      ...config
+    })
   }
 
   /**
    * 拦截器
    */
   setupInterceptors() {
-    const {
-      requestInterceptors,
-      requestInterceptorsCatch,
-      responseInterceptors,
-      responseInterceptorsCatch,
-    } = this.interceptors;
+    const { requestInterceptors, requestInterceptorsCatch, responseInterceptors, responseInterceptorsCatch } =
+      this.interceptors
 
-    const cancel = new Cancel();
+    const cancel = new Cancel()
 
     // 请求拦截器处理
     this.instance.interceptors.request.use((config: AxiosRequestConfig) => {
-      const ignoreCancelToken = (config as Recordable).headers
-        .ignoreCancelToken;
-      const ignoreCancel =
-        ignoreCancelToken !== undefined
-          ? ignoreCancelToken
-          : this.requestOptions?.ignoreCancelToken;
+      const ignoreCancelToken = (config as Recordable).headers.ignoreCancelToken
+      const ignoreCancel = ignoreCancelToken !== undefined ? ignoreCancelToken : this.requestOptions?.ignoreCancelToken
 
-      !ignoreCancel && cancel.addPending(config);
+      !ignoreCancel && cancel.addPending(config)
 
-      if (requestInterceptors && isFunction(requestInterceptors)) {
-        config = requestInterceptors(config, this.requestOptions);
+      if (requestInterceptors != null && isFunction(requestInterceptors)) {
+        config = requestInterceptors(config, this.requestOptions)
       }
-      return config;
-    });
+      return config
+    })
     // 请求拦截器错误捕获
-    requestInterceptorsCatch &&
+    requestInterceptorsCatch != null &&
       isFunction(requestInterceptorsCatch) &&
-      this.instance.interceptors.request.use(
-        undefined,
-        requestInterceptorsCatch
-      );
+      this.instance.interceptors.request.use(undefined, requestInterceptorsCatch)
 
     // 响应结果拦截器处理
     this.instance.interceptors.response.use((response: AxiosResponse<any>) => {
       response && cancel.removePending(response.config)
-      if (responseInterceptors && isFunction(responseInterceptors)) {
-        response = responseInterceptors(response);
+      if (responseInterceptors != null && isFunction(responseInterceptors)) {
+        response = responseInterceptors(response)
       }
-      return response;
-    });
+      return response
+    })
     // 响应结果拦截器错误捕获
-    responseInterceptorsCatch &&
+    responseInterceptorsCatch != null &&
       isFunction(responseInterceptorsCatch) &&
-      this.instance.interceptors.response.use(
-        undefined,
-        responseInterceptorsCatch
-      );
+      this.instance.interceptors.response.use(undefined, responseInterceptorsCatch)
   }
 }

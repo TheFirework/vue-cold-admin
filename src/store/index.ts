@@ -1,7 +1,6 @@
-import { createPinia } from "pinia";
+import { createPinia } from 'pinia'
 
-const pinia = createPinia();
-
-export { pinia };
+const pinia = createPinia()
 
 export * from './modules'
+export { pinia }

@@ -1,5 +1,5 @@
-import ViteCompression from "vite-plugin-compression";
+import ViteCompression from 'vite-plugin-compression'
 
 export const compressPlugin = () => {
-  return ViteCompression({ ext: ".gz", deleteOriginFile: false });
-};
+  return ViteCompression({ ext: '.gz', deleteOriginFile: false })
+}

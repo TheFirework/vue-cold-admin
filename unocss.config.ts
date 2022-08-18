@@ -1,7 +1,7 @@
-import { defineConfig,presetAttributify, presetUno } from 'unocss';
+import { defineConfig, presetAttributify, presetUno } from 'unocss'
 
 export default defineConfig({
-    exclude: ['node_modules', '.git', '.github', '.husky', '.vscode', 'build', 'dist', 'mock', 'public', './stats.html'],
+  exclude: ['node_modules', '.git', '.github', '.husky', '.vscode', 'build', 'dist', 'mock', 'public', './stats.html'],
   presets: [presetUno(), presetAttributify()],
   shortcuts: [
     ['wh-full', 'w-full h-full'],
@@ -12,9 +12,8 @@ export default defineConfig({
     ['absolute-rt', 'absolute right-0 top-0'],
     ['absolute-rb', 'absolute right-0 bottom-0'],
     ['absolute-center', 'absolute-lt f-c-c wh-full'],
-    ['text-ellipsis', 'truncate'],
+    ['text-ellipsis', 'truncate']
   ],
   rules: [],
-  theme: {
-  },
+  theme: {}
 })

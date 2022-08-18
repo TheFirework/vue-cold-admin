@@ -1,19 +1,21 @@
-import http from "../http";
+import http from '@/http'
 
-
-export function login(data:any){
-    return http.request({
-        url:'/login',
-        method:'post',
-        data
-    },{
-        isTransformResponse:false
-    });
+export async function login(data: any) {
+  return await http.request(
+    {
+      url: '/login',
+      method: 'post',
+      data
+    },
+    {
+      isTransformResponse: false
+    }
+  )
 }
 
-export function logout () {
-    return http.request({
-        url:'/logout',
-        method:'post'
-    })
+export async function logout() {
+  return await http.request({
+    url: '/logout',
+    method: 'post'
+  })
 }

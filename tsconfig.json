@@ -10,22 +10,13 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "lib": [
-      "ESNext",
-      "DOM"
-    ],
+    "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
-    "types": [
-      "node",
-      "vite/client",
-      "naive-ui/volar"
-    ],
+    "types": ["node", "vite/client", "naive-ui/volar", "unplugin-vue-define-options"],
     "baseUrl": "./",
     "paths": {
       "~/*": ["./*"],
-      "@/*": [
-        "src/*",
-      ]
+      "@/*": ["src/*"]
     }
   },
   "include": [
@@ -39,16 +30,9 @@
     "types/**.d.ts",
     "mock/**/*.ts",
     "mock/**/*.d.ts",
-    "vite.config.ts", 
-    "unocss.config.ts", 
+    "vite.config.ts",
+    "unocss.config.ts",
+    "mockProdServer.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "dist",
-  ],
-  // "references": [
-  //   {
-  //     "path": "./tsconfig.node.json"
-  //   }
-  // ]
+  "exclude": ["node_modules", "dist"]
 }
