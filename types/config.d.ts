@@ -5,4 +5,5 @@ interface ConfigData {
   cachePrefixKey: string
   ACCESS_TOKEN: string
   USERINFO: string
+  mode: string
 }

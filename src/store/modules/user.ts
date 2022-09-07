@@ -1,8 +1,8 @@
+import { login } from '@/api/login'
 import config from '@/config'
 import { ResultEnum } from '@/enums/httpEnum'
-import { defineStore, storeToRefs } from 'pinia'
-import { login } from '@/api/login'
 import { storage } from '@/utils'
+import { defineStore, storeToRefs } from 'pinia'
 
 export const useUserStore = defineStore('user', {
   state: () => ({

@@ -1,3 +1,5 @@
+export * from './component'
+export * from './fn'
 export * from './is'
 export * from './object'
 export * from './storage'

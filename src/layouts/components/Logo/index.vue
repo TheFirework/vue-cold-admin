@@ -1,7 +1,7 @@
 <template>
   <div class="logo-wrap">
     <img src="@/assets/vue.svg" alt="" />
-    <h2 class="title" v-if="!collapsed">ColdAdmin</h2>
+    <h3 class="title" v-if="!collapsed">ColdAdmin</h3>
   </div>
 </template>
 
@@ -22,6 +22,8 @@ defineProps({
   line-height: 64px;
   overflow: hidden;
   white-space: nowrap;
+  background-color: #000;
+  color: #fff;
 
   img {
     width: auto;

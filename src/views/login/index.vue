@@ -65,8 +65,8 @@ const router = useRouter()
 const loading = ref(false)
 const formRef = ref<FormInst | null>(null)
 const formValue = reactive({
-  username: '',
-  password: ''
+  username: 'admin',
+  password: '123456'
 })
 const rules = {
   username: {

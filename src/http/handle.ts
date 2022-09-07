@@ -4,8 +4,8 @@
  * @Description:
  */
 import { ResultEnum } from '@/enums/httpEnum'
-import { router } from '../router'
-import { storage } from '../utils'
+import router from '@/router'
+import { storage } from '@/utils'
 
 /**
  * 处理后端错误返回

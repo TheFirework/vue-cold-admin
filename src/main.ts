@@ -1,14 +1,18 @@
 import App from '@/App.vue'
-import { router } from '@/router'
-import { pinia } from '@/store'
+import { NaiveProvider } from '@/components/common'
+import router, { setupRouter } from '@/router'
+import { setupStore } from '@/store'
 import '@/style/index.scss'
 import 'uno.css'
 import { createApp } from 'vue'
 
-const setupApp = () => {
+const setupApp = async () => {
+  const provider = createApp(NaiveProvider)
   const app = createApp(App)
-  app.use(pinia)
-  app.use(router)
+  setupStore(app)
+  provider.mount('#provider')
+  await setupRouter(app)
+  await router.isReady()
   app.mount('#app')
 }
 
