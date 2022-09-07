@@ -13,3 +13,5 @@
 | revert   | 回滚到上一个版本                                       |
 | style    | 代码格式修改, 注意不是 css 修改                        |
 | test     | 测试用例修改                                           |
+
+> git commit -m feat: 新增功能说明

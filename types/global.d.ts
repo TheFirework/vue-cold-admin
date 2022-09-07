@@ -32,3 +32,23 @@ interface MenuRecordRaw {
   isChain?: number
   code?: string
 }
+
+interface RouteData extends RouteMeta {
+  path?: string
+  redirect?: string
+  component?: string | Component
+  name: string
+  meta: RouteMetaData
+  children?: RouteData[] | null
+}
+
+interface RouteMetaData extends RouteMeta {
+  openType?: string
+  title?: string
+  keepAlive?: number
+  show?: number
+  type: number
+  icon?: string | Component | null
+  isChain?: number
+  permissions?: string[] | null
+}

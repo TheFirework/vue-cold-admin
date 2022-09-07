@@ -1,5 +1,4 @@
 import { getMenuList } from '@/api/menu'
-import { RouteData } from '@/router/types'
 import { deepTree } from '@/utils'
 import { generatorDynamicRouter } from '@/utils/route'
 import { defineStore, storeToRefs } from 'pinia'

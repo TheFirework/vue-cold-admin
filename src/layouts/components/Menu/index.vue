@@ -47,11 +47,16 @@ const generator: any = (routeMap: any[]) => {
 
 onMounted(() => (menus.value = generator(routerStore.menus)))
 
-const clickMenuItem = (key: string) => {
+const clickMenuItem = (key: string, item: { meta: { type: number; openType: string } }) => {
   if (/http(s)?:/.test(key)) {
     window.open(key)
   } else {
-    router.push({ name: key })
+    if (item.meta.type === 2 && item.meta.openType === '_blank') {
+      const routerInfo = router.resolve({ name: key })
+      window.open(routerInfo.href, '_blank')
+    } else {
+      router.push({ name: key })
+    }
   }
 }
 </script>

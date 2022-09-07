@@ -1,10 +1,12 @@
 <template>
-  <n-layout has-sider :position="position">
+  <n-layout class="layout" has-sider :position="position">
     <n-layout-sider
+      class="layout-sider"
       collapse-mode="width"
       :collapsed-width="64"
       :width="200"
       show-trigger
+      :position="position"
       :inverted="inverted"
       :collapsed="collapsed"
       @collapse="collapsed = true"
@@ -35,6 +37,15 @@ const inverted = ref(true)
 </script>
 
 <style scoped lang="scss">
+.layout {
+  .layout-sider {
+    min-height: 100vh;
+    box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);
+    position: relative;
+    z-index: 13;
+    transition: all 0.2s ease-in-out;
+  }
+}
 .layout-content {
   background-color: #f5f7f9;
 }

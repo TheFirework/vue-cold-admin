@@ -22,8 +22,6 @@ defineProps({
   line-height: 64px;
   overflow: hidden;
   white-space: nowrap;
-  background-color: #000;
-  color: #fff;
 
   img {
     width: auto;

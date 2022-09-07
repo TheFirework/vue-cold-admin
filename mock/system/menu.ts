@@ -12,7 +12,7 @@ const menuList: MenuRecordRaw[] = [
     name: 'dashboard',
     redirect: '/dashboard/console',
     title: 'Dashboard',
-    icon: '',
+    icon: 'DashboardOutlined',
     keepAlive: 0,
     show: 1,
     type: 1,
@@ -59,7 +59,7 @@ const menuList: MenuRecordRaw[] = [
     name: 'auth',
     component: 'ParentLayout',
     title: '权限管理',
-    icon: '',
+    icon: 'SafetyOutlined',
     show: 1,
     type: 1,
     isChain: 0
@@ -135,21 +135,6 @@ const menuList: MenuRecordRaw[] = [
     parentId: 0,
     orderNum: 0,
     status: 1,
-    path: 'blank',
-    name: 'blank',
-    title: '其它',
-    component: 'ParentLayout',
-    keepAlive: 0,
-    show: 1,
-    icon: '',
-    type: 1,
-    isChain: 0
-  },
-  {
-    id: 3001,
-    parentId: 3,
-    orderNum: 0,
-    status: 1,
     path: 'about',
     openType: '_blank',
     component: 'views/about/index.vue',
@@ -158,7 +143,7 @@ const menuList: MenuRecordRaw[] = [
     keepAlive: 0,
     show: 1,
     type: 2,
-    icon: '',
+    icon: 'GitlabOutlined',
     isChain: 0
   },
   {
@@ -174,7 +159,7 @@ const menuList: MenuRecordRaw[] = [
     keepAlive: 0,
     show: 1,
     type: 2,
-    icon: '',
+    icon: 'FileTextOutlined',
     isChain: 1
   }
 ]

@@ -1,6 +1,5 @@
 import { BlankLayout, ParentLayout } from '@/router/constant'
-import { RouteData, RouteMetaData } from '@/router/types'
-import { renderIcon } from '@/utils'
+import { constantRouterIcon } from '@/router/router-icons'
 
 const LayoutMap = new Map<string, () => Promise<typeof import('*.vue')>>()
 
@@ -28,7 +27,7 @@ export const generatorRouter = (routerMap: any[], parent?: any): RouteData[] => 
           keepAlive: item.keepAlive,
           show: item.show,
           type: item.type,
-          icon: item.icon ? renderIcon(item.icon) : null,
+          icon: constantRouterIcon[item.icon] || null,
           isChain: item.isChain,
           openType: item.openType,
           permissions: null

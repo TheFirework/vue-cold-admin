@@ -44,7 +44,7 @@ export function createRouterGuards(router: Router) {
     const routes = await routerStore.generateRoutes()
 
     routes.forEach((e) => {
-      router.addRoute(e as RouteRecordRaw)
+      router.addRoute(e as unknown as RouteRecordRaw)
     })
 
     const isErrorPage = router.getRoutes().findIndex((e) => e.name === errorRoute.name)
