@@ -60,6 +60,20 @@ export function createRouterGuards(router: Router) {
 
   router.afterEach((to) => {
     document.title = (to?.meta?.title as string) || document.title
+    const routerStore = useRouterStoreWidthOut()
+    const keepAliveComponents: string[] = routerStore.keepAliveComponents
+    const currentName: any = to.matched.find((item) => item.name == to.name)?.name
+    if (currentName && !keepAliveComponents.includes(currentName) && to.meta?.keepAlive) {
+      // 需要缓存的组件
+      keepAliveComponents.push(currentName)
+    } else if (!to.meta?.keepAlive || to.name == 'Redirect') {
+      // 不需要缓存的组件
+      const index = routerStore.keepAliveComponents.findIndex((name) => name == currentName)
+      if (index != -1) {
+        keepAliveComponents.splice(index, 1)
+      }
+    }
+    routerStore.setKeepAliveComponents(keepAliveComponents)
     const Loading = window.$loading
     Loading && Loading.finish()
   })

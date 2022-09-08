@@ -7,7 +7,8 @@ export const useRouterStore = defineStore('router', {
   state: () => ({
     isDynamicAddRoute: false,
     menus: <any>[],
-    routes: <any>[]
+    routes: <any>[],
+    keepAliveComponents: [] as string[]
   }),
   getters: {},
   actions: {
@@ -22,6 +23,10 @@ export const useRouterStore = defineStore('router', {
     },
     setDynamicAddRoute(bool: boolean) {
       this.isDynamicAddRoute = bool
+    },
+    setKeepAliveComponents(names: string[]) {
+      this.keepAliveComponents = names
+      console.log(this.keepAliveComponents)
     },
     async generateRoutes(): Promise<RouteData[]> {
       return new Promise((resolve, reject) => {

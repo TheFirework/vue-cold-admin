@@ -2,6 +2,10 @@
   <div>角色管理</div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+defineOptions({
+  name: 'role'
+})
+</script>
 
 <style scoped></style>

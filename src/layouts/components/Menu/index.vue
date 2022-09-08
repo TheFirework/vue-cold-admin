@@ -51,12 +51,7 @@ const clickMenuItem = (key: string, item: { meta: { type: number; openType: stri
   if (/http(s)?:/.test(key)) {
     window.open(key)
   } else {
-    if (item.meta.type === 2 && item.meta.openType === '_blank') {
-      const routerInfo = router.resolve({ name: key })
-      window.open(routerInfo.href, '_blank')
-    } else {
-      router.push({ name: key })
-    }
+    router.push({ name: key })
   }
 }
 </script>

@@ -21,7 +21,6 @@ interface MenuRecordRaw {
   status: number
   path?: string
   redirect?: string
-  openType?: string
   component?: string
   name: string
   title?: string
@@ -29,7 +28,6 @@ interface MenuRecordRaw {
   show?: number
   type: number
   icon?: string
-  isChain?: number
   code?: string
 }
 
@@ -43,12 +41,10 @@ interface RouteData extends RouteMeta {
 }
 
 interface RouteMetaData extends RouteMeta {
-  openType?: string
   title?: string
   keepAlive?: number
   show?: number
   type: number
   icon?: string | Component | null
-  isChain?: number
   permissions?: string[] | null
 }

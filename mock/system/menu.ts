@@ -15,8 +15,7 @@ const menuList: MenuRecordRaw[] = [
     icon: 'DashboardOutlined',
     keepAlive: 0,
     show: 1,
-    type: 1,
-    isChain: 0
+    type: 1
   },
   {
     id: 1001,
@@ -24,15 +23,13 @@ const menuList: MenuRecordRaw[] = [
     orderNum: 0,
     status: 1,
     path: 'console',
-    openType: '_parent',
     component: 'views/dashboard/console/console.vue',
     name: 'console',
     title: '控制台',
     keepAlive: 1,
     show: 1,
     type: 2,
-    icon: '',
-    isChain: 0
+    icon: ''
   },
   {
     id: 1002,
@@ -40,15 +37,13 @@ const menuList: MenuRecordRaw[] = [
     orderNum: 0,
     status: 1,
     path: 'monitor',
-    openType: '_parent',
     component: 'views/dashboard/monitor/monitor.vue',
     name: 'monitor',
     title: '监控台',
     keepAlive: 1,
     show: 1,
     type: 2,
-    icon: '',
-    isChain: 0
+    icon: ''
   },
   {
     id: 2,
@@ -61,8 +56,7 @@ const menuList: MenuRecordRaw[] = [
     title: '权限管理',
     icon: 'SafetyOutlined',
     show: 1,
-    type: 1,
-    isChain: 0
+    type: 1
   },
   {
     id: 2001,
@@ -70,15 +64,13 @@ const menuList: MenuRecordRaw[] = [
     orderNum: 0,
     status: 1,
     path: 'role',
-    openType: '_parent',
     component: 'views/auth/role/index.vue',
     name: 'role',
     title: '角色管理',
     keepAlive: 1,
     show: 1,
     type: 2,
-    icon: '',
-    isChain: 0
+    icon: ''
   },
   {
     id: 20011,
@@ -104,15 +96,13 @@ const menuList: MenuRecordRaw[] = [
     orderNum: 0,
     status: 1,
     path: 'menu',
-    openType: '_parent',
     component: 'views/auth/menu/index.vue',
     name: 'menu',
     title: '菜单管理',
     keepAlive: 1,
     show: 1,
     type: 2,
-    icon: '',
-    isChain: 0
+    icon: ''
   },
   {
     id: 2003,
@@ -120,15 +110,13 @@ const menuList: MenuRecordRaw[] = [
     orderNum: 0,
     status: 1,
     path: 'user',
-    openType: '_parent',
     component: 'views/auth/user/index.vue',
     name: 'user',
     title: '用户管理',
     keepAlive: 1,
     show: 1,
     type: 2,
-    icon: '',
-    isChain: 0
+    icon: ''
   },
   {
     id: 3,
@@ -136,15 +124,13 @@ const menuList: MenuRecordRaw[] = [
     orderNum: 0,
     status: 1,
     path: 'about',
-    openType: '_blank',
     component: 'views/about/index.vue',
     name: 'about',
     title: '关于项目',
     keepAlive: 0,
     show: 1,
     type: 2,
-    icon: 'GitlabOutlined',
-    isChain: 0
+    icon: 'GitlabOutlined'
   },
   {
     id: 4,
@@ -152,15 +138,13 @@ const menuList: MenuRecordRaw[] = [
     orderNum: 0,
     status: 1,
     path: 'document',
-    // openType: '_blank',
     component: '',
     name: 'https://github.com/TheFirework/vue-cold-admin',
     title: '项目文档',
     keepAlive: 0,
     show: 1,
     type: 2,
-    icon: 'FileTextOutlined',
-    isChain: 1
+    icon: 'FileTextOutlined'
   }
 ]
 

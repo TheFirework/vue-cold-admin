@@ -28,8 +28,6 @@ export const generatorRouter = (routerMap: any[], parent?: any): RouteData[] => 
           show: item.show,
           type: item.type,
           icon: constantRouterIcon[item.icon] || null,
-          isChain: item.isChain,
-          openType: item.openType,
           permissions: null
         } as RouteMetaData
       }

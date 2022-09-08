@@ -15,12 +15,14 @@
       <logo :collapsed="collapsed" />
       <sider-menu :collapsed="collapsed" :inverted="inverted" />
     </n-layout-sider>
-    <n-layout class="layout-content">
+    <n-layout :inverted="inverted">
       <n-layout-header>
         <page-header v-model:collapsed="collapsed" />
       </n-layout-header>
-      <n-layout-content content-style="padding: 24px;">
-        <router-view />
+      <n-layout-content class="layout-content">
+        <div class="layout-content-main">
+          <main-view />
+        </div>
       </n-layout-content>
     </n-layout>
   </n-layout>
@@ -29,6 +31,7 @@
 <script setup lang="ts">
 import PageHeader from './components/Header/index.vue'
 import Logo from './components/Logo/index.vue'
+import MainView from './components/MainView/index.vue'
 import SiderMenu from './components/Menu/index.vue'
 
 const position = ref<any>('absolute')
@@ -45,8 +48,16 @@ const inverted = ref(true)
     z-index: 13;
     transition: all 0.2s ease-in-out;
   }
-}
-.layout-content {
-  background-color: #f5f7f9;
+
+  .layout-content {
+    background-color: #f5f7f9 !important;
+
+    .layout-content-main {
+      height: calc(100vh - 108px);
+      position: relative;
+      overflow-y: auto;
+      padding: 0 10px;
+    }
+  }
 }
 </style>
